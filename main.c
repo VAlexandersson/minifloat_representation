@@ -4,7 +4,6 @@
 #define LARGEST_VALUE   15.5
 #define BIAS            3
 
-
 struct Float8_s{
     char data;
 } Float8_default = {0};
@@ -25,7 +24,7 @@ int main() {
     Float8 f = Float8_default;
 
     float floats[] = {
-            0.001f, 0, -20, 55.8, // infs and 0s
+            0.001f, 0, -20, 55.8f, // infs and 0s
             15.5f, 14.9f, // 0 110 1111, 0 110 1101
             0.25f, -0.25f - 0.015625f * 3, // 0 001 0000, 1 001 0011
             // Denormalized
@@ -41,8 +40,6 @@ int main() {
     return 0;
 }
 
-
-
 void float_to_float8(Float8 *out, float f) {
 
     int exponent, mantissa;
@@ -51,12 +48,7 @@ void float_to_float8(Float8 *out, float f) {
 
     if(outsideLimits(out, f)) return;
 
-    //out->data |= ((get_exponent(&f)+BIAS) << 4);
     exponent = get_exponent(&f);
-
-    //exponent = get_exponent(&f);
-    //if (exponent <= -BIAS) exponent = -BIAS;
-
     mantissa = get_mantissa(f, exponent);
 
     out->data |= (exponent+BIAS) << 4;
