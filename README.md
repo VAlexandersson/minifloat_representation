@@ -30,7 +30,7 @@ $[0\ 000\ 0001] = 2^{-2} \cdot 0.0001_2 = 0.000001_2 = 0.015625$
 
 1. \[0 111 0000\] = +Infinity
 2. \[1 111 0000\] = -Infinity
-3. Mantissa != 0000 = NaN, not a number.
+3. Mantissa != 0000 $\implies$ NaN, not a number.
   > \[0 111 0001\] ... \[1 111 1111\] = NaN.
 
 
