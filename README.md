@@ -27,7 +27,7 @@ The float's 8-bits are distributed as follows:
   
 ### Special cases, if exp. = 0 0 0 & 1 1 1.
 
-#### If exponent = 0 0 0 (-3)
+#### If exponent = 0 0 0 (-3) $\implies$ Denormalized form
   - Implicit '0' instead of implicit '1'.
   - Exponent bias = '-2' instead of '-3'
 
@@ -44,17 +44,3 @@ The float's 8-bits are distributed as follows:
 
 - Resulting in largest unsigned value is 15.5
   - $\[0\ 011\ 1111\] = \pm 2^3 \cdot 1.1111_2 = \pm 1111.1_2 = \pm 15.5$
-
----
-
-
-
-The 8-bit float will be stored in the C struct 'Float8' that holds a char that will act as the data buffer for the floating-point number.  
-
-```C
-  typedef struct {
-    char data;
-  } Float8;
-```
-
-
