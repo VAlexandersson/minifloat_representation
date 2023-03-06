@@ -2,12 +2,7 @@
 
 #define SMALLEST_VALUE  0.015625
 #define LARGEST_VALUE   15.5
-#define SIGN_BIT        7
-
 #define BIAS            3
-#define IS_INF(X)       (X > LARGEST_VALUE) // 0 110 1111 = 7.5
-#define IS_ZERO(X)      (X < SMALLEST_VALUE)
-#define GET_SIGN(X)     (X < 0 ? 0x80 : 0)
 
 
 typedef struct {
@@ -15,16 +10,19 @@ typedef struct {
 } Float8;
 
 
-void    print_bits(unsigned int x);
-void    float_to_float8(Float8 *out, float f);
-int     outsideLimits(Float8 *out, float f);
-int     get_exponent(float* f);
-int     get_mantissa(float f);
+void    print_bits(unsigned int);
+void    float_to_float8(Float8*, float);
+int     outsideLimits(Float8*, float*);
+int     get_exponent(float*);
+int     get_mantissa(float);
+int     get_sign(float*);
 
+int     is_inf(float* f)    { return (*f > LARGEST_VALUE ); }
+int     is_zero(float* f)   { return (*f < SMALLEST_VALUE); }
 
 int main() {
     Float8 f;
-    float floats[] = {-0.015625f, -0.25f, -1.3799f, 0.140625f, 7.5f, 0.9f};
+    float floats[] = {-0.015625f, -0.25f, -1.3799f, 0.140625f, 7.5f, 0.9f, -45.77};
     int length = sizeof(floats)/sizeof(floats[0]);
 
     for(int i = 0; i < length; i++) {
@@ -36,12 +34,12 @@ int main() {
 }
 
 
+
 void float_to_float8(Float8 *out, float f) {
 
-    out->data = GET_SIGN(f);
-    if(out->data & (1<<SIGN_BIT)) f *=-1;
+    out->data = get_sign(&f);
 
-    if(outsideLimits(out, f)) return;
+    if(outsideLimits(out, &f)) return;
 
     int exponent = get_exponent(&f);
 
@@ -54,6 +52,11 @@ void float_to_float8(Float8 *out, float f) {
     out->data |= (mantissa) << 0;
 }
 
+int get_sign(float* f) {
+    if(*f > 0) return 0;
+    *f *= -1;
+    return 0x80;
+}
 
 int get_exponent(float* f) {
     int exponent = 0;
@@ -82,10 +85,9 @@ int get_mantissa(float f) {
 }
 
 
-int outsideLimits(Float8 *out, float f) {
-    if(IS_INF(f) || IS_ZERO(f)) {
-        printf("OUTSIDE LIMITS\n");
-        if(IS_INF(f)) out->data |= 0x70;
+int outsideLimits(Float8 *out, float *f) {
+    if(is_inf(f) || is_zero(f)) {
+        if(is_inf(f)) out->data |= 0x70;
         return 1;
     }
     return 0;
@@ -97,15 +99,3 @@ void print_bits(unsigned int x) {
         putchar(((x >> i) & 1U) ? '1' : '0');
     putchar('\n');
 }
-
-/*
- *  100.0000 = 4.0      = 110 0000
- *  10.00000 = 2.0      = 101 0000
- *  1.000000 = 1.0      = 100 0000
- *  0.100000 = 0.5      = 010 0000
- *  0.010000 = 0.25     = 001 0000
- *  0.001000 = 0.125    = 000 1000
- *  0.000100 = 0.0625   = 000 0100
- *  0.000010 = 0.03125  = 000 0010
- *  0.000001 = 0.015625 = 000 0001
- * */
