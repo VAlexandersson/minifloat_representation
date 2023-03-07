@@ -51,7 +51,7 @@ void float_to_float8(Float8 *out, float f) {
 
     if(outsideLimits(out, f)) return;
 
-    out->data |= (get_exponent(&f));
+    out->data |= get_exponent(&f);
     out->data |= get_mantissa(f, fl8_exponent(out->data));
 }
 
