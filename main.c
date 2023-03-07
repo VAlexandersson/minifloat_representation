@@ -13,11 +13,9 @@ const float floats[] = {
         0.234375f, 0.015625f, 0.187500f // 0 000 1111, 0 000 0001, 0 000 1100
 };
 
-struct Float8_s{
+typedef struct{
     char data;
-} Float8_default = {0};
-
-typedef struct Float8_s Float8;
+} Float8;
 
 void    print_bits(unsigned int);
 
@@ -32,7 +30,7 @@ int     is_zero(float f)    { return (f < SMALLEST_VALUE && f > -SMALLEST_VALUE)
 int     fl8_exponent(int f) { return (int)((f & 0x70) >> 4) << 0;}
 
 int main() {
-    Float8 f = Float8_default;
+    Float8 f;
 
     int length = sizeof(floats)/sizeof(floats[0]);
 
