@@ -43,4 +43,4 @@ The float's 8-bits are distributed as follows:
 3. Mantissa != 0000 $\implies$ NaN, not a number. *\[0 111 0001\] ... \[1 111 1111\] = NaN.*
 
 - Resulting in largest unsigned value is 15.5
-  - $\[0\ 011\ 1111\] = \pm 2^3 \cdot 1.1111_2 = \pm 1111.1_2 = \pm 15.5$
+  - $[0\ 011\ 1111] = \pm 2^3 \cdot 1.1111_2 = \pm 1111.1_2 = \pm 15.5$
