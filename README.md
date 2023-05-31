@@ -17,7 +17,7 @@ The float's 8-bits are distributed as follows:
   - 4-bit mantissa
 
 #### 1.  Biased Exponent
-  - The exponent is biased with -3 so numbers that are closer to 0 can be represented. This changes the exponent range from $0 - 7$ to $(-3) - 4$. 
+  - The exponent is biased is there to make it possible to represent numbers that goes towards 0. With a -3 biased we will get a exponent range of $(-3) - 4$(, instead of $0 - 7$). 
 
 #### 2. Implicit binary dot, $0 0 0 0 \implies 0 . 0 0 0$ 
   - Implicit binary dot after leading digit in the mantissa. 
