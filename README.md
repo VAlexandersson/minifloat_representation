@@ -1,6 +1,6 @@
 # Floating-point representation - Minifloat
 
-Emulating an 8-bit floating-point representation 'Float8' that has a 1-bit mantissa, 4-bit exponent, 3-bit exponent and a -3 exponent bias.
+Emulating an 8-bit floating-point representation 'Float8' that has a 4-bit mantissa, 3-bit exponent, 1-bit sign and a -3 exponent bias.
 
 - Largest unsigned value: 
   - $\[0\ 011\ 1111\] = \pm 2^3 \cdot 1.1111_2 = \pm 1111.1_2 = \pm 15.5$
