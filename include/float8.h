@@ -1,6 +1,12 @@
 #ifndef FLOAT8_H
 #define FLOAT8_H
 
+// Constants
+#define SMALLEST_VALUE  0.015625
+#define LARGEST_VALUE   15.5
+#define BIAS            3
+#define MANTISSA_BITS   4
+
 // Custom 8-bit floating point representation
 typedef struct {
     unsigned char data;

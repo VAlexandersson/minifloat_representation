@@ -1,13 +1,6 @@
 #include "../include/float8.h"
 #include <stdio.h>
 
-
-#define SMALLEST_VALUE  0.015625
-#define LARGEST_VALUE   15.5
-#define BIAS            3
-#define MANTISSA_BITS   4
-
-
 int     is_inf(float f)     { return (f > LARGEST_VALUE || f < -LARGEST_VALUE); }
 int     is_zero(float f)    { return (f < SMALLEST_VALUE && f > -SMALLEST_VALUE); }
 int     fl8_exponent(int f) { return (int)((f & 0x70) >> 4) << 0;}
