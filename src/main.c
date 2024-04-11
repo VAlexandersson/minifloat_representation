@@ -1,6 +1,5 @@
 // #include <stdio.h>
 #include "../include/float8.h"
-#include <stdio.h>
 
 int main() {
     const float floats[] = {
@@ -12,5 +11,6 @@ int main() {
     };
     int length = sizeof(floats)/sizeof(floats[0]);
     process_floats(floats, length);
+
     return 0;
 }
