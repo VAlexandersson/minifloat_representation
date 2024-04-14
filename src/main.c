@@ -1,5 +1,5 @@
-// #include <stdio.h>
 #include "../include/float8.h"
+#include <stdio.h>
 
 int main() {
   const float floats[] = {
@@ -10,6 +10,12 @@ int main() {
       0.234375f, 0.015625f, 0.187500f // 0 000 1111, 0 000 0001, 0 000 1100
   };
   int length = sizeof(floats) / sizeof(floats[0]);
+  
+  if (length <= 0) {
+      fprintf(stderr, "Error: Empty array of floats\n");
+      return 1;
+  }
+  
   process_floats(floats, length);
 
   return 0;

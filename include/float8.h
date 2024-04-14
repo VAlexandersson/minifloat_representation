@@ -22,6 +22,22 @@ typedef enum {
   FLOAT8_ERROR_ZERO,      // Zero value error
 } Float8Error;
 
+// Error message constants
+#define ERR_MSG_NULL_PTR    "Error: NULL pointer passed to %s\n"
+#define ERR_MSG_OVERFLOW    "Error: Value %f is too large for Float8 format\n"
+#define ERR_MSG_UNDERFLOW   "Error: Value %f is too small for Float8 format\n"
+#define ERR_MSG_INFINITY    "Warning: Value %f converted to infinity\n"
+#define ERR_MSG_ZERO        "Warning: Value %f converted to zero\n"
+
+/**
+ * @brief Handles and reports Float8 errors
+ * @param error Error code from Float8Error enum
+ * @param value The float value that caused the error
+ * @param func_name Name of the function where error occurred
+ * @return The same error code that was passed in
+ */
+Float8Error handle_float8_error(Float8Error error, float value, const char* func_name);
+
 /**
  * @brief Prints binary representation of a Float8 number
  * @param x The Float8 value to print
