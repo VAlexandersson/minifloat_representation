@@ -1,4 +1,4 @@
-#include "../include/float8.h"
+#include "float8.h"
 #include <stdio.h>
 
 Float8Error handle_float8_error(Float8Error error, float value, const char* func_name) {
