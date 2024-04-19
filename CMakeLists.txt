@@ -17,6 +17,22 @@ set(SOURCES
     src/main.c
 )
 
-add_executable(float8 ${SOURCES})
+set(TEST_SOURCES
+    test/test_float8.c
+    test/test_main.c
+)
+
+# Main library
+add_library(float8_lib ${SOURCES})
+target_include_directories(float8_lib PUBLIC src)
+
+# Test executable
+add_executable(float8_test ${TEST_SOURCES})
+target_link_libraries(float8_test float8_lib)
+target_include_directories(float8_test PRIVATE test)
+
+# Main executable
+add_executable(float8 src/main.c)
+target_link_libraries(float8 float8_lib)
 
 install(TARGETS float8 DESTINATION bin)

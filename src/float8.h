@@ -147,4 +147,15 @@ int outside_limits(Float8 *out, float f);
  */
 void process_floats(const float *floats, int length);
 
+// #ifdef __cplusplus
+// extern "C" {
+// #endif
+
+// // Add before the last #endif
+// void run_tests(void);
+
+// #ifdef __cplusplus
+// }
+// #endif
+
 #endif // FLOAT8_H

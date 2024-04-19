@@ -1,22 +1,38 @@
 #include "float8.h"
 #include <stdio.h>
+#include <stdlib.h>
 
-int main() {
-  const float floats[] = {
-      0.001f, -20, 55.8f,         // 0 000 0000, 1 111 0000, 0 111 0000
-      15.5f, 15.49f, 14.9f,       // 0 110 1111, 0 110 1110, 0 110 1101
-      0.25f, -0.296875, 0.304688, // 0 001 0000, 1 001 0011, 0 001 0011
-      // Denormalized
-      0.234375f, 0.015625f, 0.187500f // 0 000 1111, 0 000 0001, 0 000 1100
-  };
-  int length = sizeof(floats) / sizeof(floats[0]);
-  
-  if (length <= 0) {
-      fprintf(stderr, "Error: Empty array of floats\n");
-      return 1;
-  }
-  
-  process_floats(floats, length);
+void print_usage(const char* program_name) {
+    fprintf(stderr, "Usage: %s <float_number>\n", program_name);
+    fprintf(stderr, "Example: %s 1.5\n", program_name);
+    fprintf(stderr, "Valid range: %f to %f\n", SMALLEST_VALUE, LARGEST_VALUE);
+}
 
-  return 0;
+int main(int argc, char *argv[]) {
+    if (argc != 2) {
+        print_usage(argv[0]);
+        return 1;
+    }
+
+    char *endptr;
+    float input = strtof(argv[1], &endptr);
+    
+    if (*endptr != '\0') {
+        fprintf(stderr, "Error: Invalid float number '%s'\n", argv[1]);
+        return 1;
+    }
+
+    Float8 f8;
+    Float8Error error = float_to_float8(&f8, input);
+    
+    if (error != FLOAT8_SUCCESS && 
+        error != FLOAT8_ERROR_INFINITY && 
+        error != FLOAT8_ERROR_ZERO) {
+        return 1;
+    }
+
+    printf("Float8 representation of %f: ", input);
+    print_bits(f8.data);
+    
+    return 0;
 }
